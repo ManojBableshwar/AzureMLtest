@@ -29,3 +29,5 @@ az ad sp create-for-rbac --name <idname> --role owner --scopes /subscriptions/$S
 
 ```
 
+
+
