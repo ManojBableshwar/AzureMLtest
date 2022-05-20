@@ -5,12 +5,14 @@ az extension remove -n ml
 # if CLI env var not set, then install default CLI
 if [[ -z "$CLI" ]]
 then
+    echo "az extension add -n ml -y "
     az extension add -n ml -y || {
       echo "ML CLI installation failed"
       exit 1
   }
 # else install private CLI
 else
+    echo "az extension add --source $CLI --yes"
     az extension add --source $CLI --yes || {
     echo "ML CLI installation failed"
     exit 1
