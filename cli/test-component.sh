@@ -39,10 +39,6 @@ else
   echo "Using WORKSPACE=$WORKSPACE to create assets..."
 fi
 
-
-
-
-
 c_version=$(date +"%s")
 
 for job in $( yq eval '.jobs | keys' $pyml | awk  '{print $2}' )
