@@ -4,7 +4,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: set-matrix
-        run: echo '::set-output name=version_matrix::["12","14","16"]'
+        run: echo '::set-output name=version_matrix::["basics/3a_basic_pipeline","basics/4a_local_data_input"]'
     outputs:
       version_matrix: ${{ steps.set-matrix.outputs.version_matrix }}
   ci:
