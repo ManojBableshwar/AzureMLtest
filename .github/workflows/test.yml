@@ -43,6 +43,7 @@ jobs:
     needs: list-components-job
     runs-on: ubuntu-latest
     strategy:
+      max-parallel: 1
       matrix:
         component_sample: ${{ fromJson(needs.list-components-job.outputs.component_sample_matrix) }}
     steps:

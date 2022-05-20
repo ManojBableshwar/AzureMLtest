@@ -53,7 +53,10 @@ do
       exit 1
   }
   echo "az ml component show --name $c_name --version $c_version"
-  az ml component show --name $c_name --version $c_version
+  az ml component show --name $c_name --version $c_version || {
+      echo "Component show failed for --name $c_name --version $c_version"
+      exit 1
+  }
   if [[ $mode == "registry" ]]
   then
     set_var="$set_var,jobs.$job.component=azureml://registries/$REGISTRY/components/$c_name/versions/$c_version"
