@@ -17,7 +17,7 @@ jobs:
     - name: check-out-this-repo-step
       uses: actions/checkout@v2
       with:
-        path: this
+        path: AzureMLtest
     - name: check-out-azureml-examples-repo-step
       uses: actions/checkout@v3
       with:
@@ -27,10 +27,6 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{secrets.AZ_CREDS}}
-    - run: pwd
-    - run: echo $GITHUB_WORKSPACE
-    - run: ls -l  $GITHUB_WORKSPACE
-    - run: ls -l  $GITHUB_WORKSPACE/this
-   # - name: set-azureml-ws-context-step
-   #   run: bash setup.sh 
-   #   working-directory: $GITHUB_WORKSPACE/this/AzureMLtest/cli
+    - name: set-azureml-ws-context-step
+      run: bash setup.sh 
+      working-directory: AzureMLtest/cli
