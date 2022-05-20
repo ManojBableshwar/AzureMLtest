@@ -1,21 +1,23 @@
 
 
-pyml=$1
+pyml_full=$1
 
 
-if [[ -z "$pyml" ]]
+if [[ -z "$pyml_full" ]]
 then
     echo "pipeline file name missing"
     exit 1
 fi
 
-dir=$(dirname $pyml)
+dir=$(dirname $pyml_full)
+pyml=$(basename $pyml_full)
+
+cd $dir
 
 for job in $( yq eval '.jobs | keys' $pyml | awk  '{print $2}' )
 do
   echo "job name: $job"
   c_file=$( yq eval ".jobs.$job.component" $pyml | sed 's/file://' )
-  c_file="$dir\/$c_file"
   echo "component file: $c_file"
   c_name=$(yq eval '.name' $c_file)
   c_version=$(date +"%s")
