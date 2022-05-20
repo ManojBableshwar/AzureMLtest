@@ -16,10 +16,13 @@ jobs:
     steps:
     - name: check-out-this-repo-step
       uses: actions/checkout@v2
+      with:
+        path: this
     - name: check-out-azureml-examples-repo-step
       uses: actions/checkout@v3
       with:
         repository: Azure/azureml-examples
+        path: azureml-examples
     - name: azure-login-step
       uses: azure/login@v1
       with:
