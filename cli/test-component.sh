@@ -11,6 +11,7 @@ fi
 
 dir=$(dirname $pyml_full)
 pyml=$(basename $pyml_full)
+cli_dir=$(pwd)
 
 cd $dir
 
@@ -31,5 +32,5 @@ do
   set_var="$set_var=jobs.$job.component=azureml:$c_name:$c_version"
 done
 
-bash ./create-job.sh $pyml $set_var
+bash $cli_dir/create-job.sh $pyml $set_var
   
