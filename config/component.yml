@@ -1,4 +1,5 @@
 name: placeholder
+display_name: placeholder
 version: placeholder
 command: echo hello
 environment: 

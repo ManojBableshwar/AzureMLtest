@@ -41,9 +41,9 @@ while read line
 do
   c_name=$(echo $line | awk -F, '{print $1}')
   c_display_name=$(echo $line | awk -F, '{print $2}')
-  echo "az ml component create --file $c_file --display_name=\"$c_display_name\" --name $c_name --version $c_version --set environment=azureml://registries/$REGISTRY/environments/publicimageexample/labels/latest $reg_var "
+  echo "az ml component create --file $c_file --name $c_name --version $c_version --set display_name=\"$c_display_name\" environment=azureml://registries/$REGISTRY/environments/publicimageexample/labels/latest $reg_var "
   start_time=`date +%s`
-  az ml component create --file $c_file --display_name="$c_display_name" --name $c_name --version $c_version --set environment=azureml://registries/$REGISTRY/environments/publicimageexample/versions/$version $reg_var  || {
+  az ml component create --file $c_file --name $c_name --version $c_version --set display_name="$c_display_name" environment=azureml://registries/$REGISTRY/environments/publicimageexample/versions/$version $reg_var  || {
       echo "Component create failed for c_name=$c_name"
       exit 1
   }
