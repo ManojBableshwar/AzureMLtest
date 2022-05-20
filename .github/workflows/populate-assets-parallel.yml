@@ -1,0 +1,69 @@
+on: push
+
+env:
+  GROUP: junqitest-rg
+  LOCATION: centraluseuap
+  WORKSPACE: junqitest
+  REGISTRY: testFeed
+# set this if private CLI has to be installed, else comment out
+  CLI: https://azuremlsdktestpypi.blob.core.windows.net/wheels/sdk-cli-v2/ml-0.0.63239653-py3-none-any.whl
+# set this env var if the CLI uses private preview features
+  AZURE_ML_CLI_PRIVATE_FEATURES_ENABLED: true
+  COMPONENT_SAMPLE_ROOT: ../../azureml-examples/cli/jobs/pipelines-with-components/
+  PIPELINE_YAML: pipeline.yml
+
+
+jobs:
+  list-components-job:
+    runs-on: ubuntu-latest
+    steps:
+    - name: check-out-this-repo-step
+      uses: actions/checkout@v2
+      with:
+        path: AzureMLtest
+    - name: check-out-azureml-examples-repo-step
+      uses: actions/checkout@v3
+      with:
+        repository: Azure/azureml-examples
+        path: azureml-examples
+    - name: azure-login-step
+      uses: azure/login@v1
+      with:
+        creds: ${{secrets.AZ_CREDS}}
+    - name: set-azureml-ws-context-step
+      run: bash setup.sh 
+      working-directory: AzureMLtest/cli
+    - name: list-component-samples-step
+      id: list-component-samples-step
+      run: bash list-component-builtin.sh registry
+      working-directory: AzureMLtest/cli
+    outputs:
+      component_sample_matrix: ${{ steps.list-component-samples-step.outputs.sample_matrix }}
+  test-component-workspace:
+    needs: list-components-job
+    runs-on: ubuntu-latest
+    strategy:
+#      max-parallel: 1
+      matrix:
+        component_sample: ${{ fromJson(needs.list-components-job.outputs.component_sample_matrix) }}
+    steps:
+    - name: check-out-this-repo-step
+      uses: actions/checkout@v2
+      with:
+        path: AzureMLtest
+    - name: check-out-azureml-examples-repo-step
+      uses: actions/checkout@v3
+      with:
+        repository: Azure/azureml-examples
+        path: azureml-examples
+    - name: azure-login-step
+      uses: azure/login@v1
+      with:
+        creds: ${{secrets.AZ_CREDS}}
+    - name: set-azureml-ws-context-step
+      run: bash setup.sh 
+      working-directory: AzureMLtest/cli
+    - name: populate-components
+      run: bash populate-assets-parallel.sh ${{ matrix.component_sample }} registry
+      continue-on-error: true
+      working-directory: AzureMLtest/cli
