@@ -28,6 +28,7 @@ jobs:
       with:
         creds: ${{secrets.AZ_CREDS}}
     - run: pwd
+    - run: echo $GITHUB_WORKSPACE
     - run: ls -l  $GITHUB_WORKSPACE
     - run: ls -l  $GITHUB_WORKSPACE/this
    # - name: set-azureml-ws-context-step
