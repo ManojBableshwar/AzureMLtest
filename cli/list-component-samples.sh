@@ -13,4 +13,6 @@ do
 done
 matrix=$(echo $matrix | sed 's/,//')
 
+echo "matrix=$matrix"
+
 echo "::set-output name=sample_matrix::[$matrix]"
