@@ -1,6 +1,8 @@
 sample=$1
 mode=$2
 
+echo "Private preview features enabled: $AZURE_ML_CLI_PRIVATE_FEATURES_ENABLED"
+
 if [[ -z "$COMPONENT_SAMPLE_ROOT" ]]
 then
     echo "env var COMPONENT_SAMPLE_ROOT not set"

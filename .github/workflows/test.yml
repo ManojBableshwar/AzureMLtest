@@ -6,7 +6,7 @@ env:
   WORKSPACE: junqitest
   REGISTRY: testFeed
 # set this if private CLI has to be installed, else comment out
-  CLI: https://azuremlsdktestpypi.blob.core.windows.net/wheels/sdk-cli-v2/ml-0.0.61212840-py3-none-any.whl
+  CLI: https://azuremlsdktestpypi.blob.core.windows.net/wheels/sdk-cli-v2/ml-0.0.63239653-py3-none-any.whl
 # set this env var if the CLI uses private preview features
   AZURE_ML_CLI_PRIVATE_FEATURES_ENABLED: true
   COMPONENT_SAMPLE_ROOT: ../../azureml-examples/cli/jobs/pipelines-with-components/
@@ -35,7 +35,8 @@ jobs:
 #      working-directory: AzureMLtest/cli
     - name: list-component-samples-step
       id: list-component-samples-step
-      run: bash list-component-samples.sh
+#      run: bash list-component-samples.sh
+      run: echo '::set-output name=sample_matrix::["basics/1a_e2e_local_components"]'
       working-directory: AzureMLtest/cli
     outputs:
       component_sample_matrix: ${{ steps.list-component-samples-step.outputs.sample_matrix }}
@@ -65,5 +66,9 @@ jobs:
       working-directory: AzureMLtest/cli
     - name: register-components-and-run-job-workspace-step
       run: bash test-component.sh ${{ matrix.component_sample }} workspace
+      continue-on-error: true
+      working-directory: AzureMLtest/cli
+    - name: register-components-and-run-job-registry-step
+      run: bash test-component.sh ${{ matrix.component_sample }} registry
       continue-on-error: true
       working-directory: AzureMLtest/cli

@@ -1,6 +1,8 @@
 job=$1
 set_var=$2
 
+echo "Private preview features enabled: $AZURE_ML_CLI_PRIVATE_FEATURES_ENABLED"
+
 if [[ -z "$set_var" ]]
 then
   echo "az ml job create --file $job --query name -o tsv"
