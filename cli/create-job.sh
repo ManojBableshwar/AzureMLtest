@@ -6,7 +6,7 @@ then
   echo "az ml job create --file $job --query name -o tsv"
   export run_id=$(az ml job create --file $job --query name -o tsv)
 else
-  set_var$(echo $set_var | sed 's/=/ /g')
+  set_var=$(echo $set_var | sed 's/,/ /g')
   echo "az ml job create --file $job --set $set_var --query name -o tsv"
   export run_id=$(az ml job create --file $job --set $set_var --query name -o tsv)
 fi
