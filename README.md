@@ -25,7 +25,7 @@ SUBSCRIPTION=$(az account show --query id -o tsv)
 
 SECRET_NAME="AZ_CREDS"
 
-az ad sp create-for-rbac --name $GROUP --role owner --scopes /subscriptions/$SUBSCRIPTION/resourceGroups/$GROUP --sdk-auth | gh secret set $SECRET_NAME
+az ad sp create-for-rbac --name <idname> --role owner --scopes /subscriptions/$SUBSCRIPTION/resourceGroups/$GROUP --sdk-auth | gh secret set $SECRET_NAME
 
 ```
 
