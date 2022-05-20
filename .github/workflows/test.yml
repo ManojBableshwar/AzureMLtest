@@ -31,5 +31,5 @@ jobs:
       run: bash setup.sh 
       working-directory: AzureMLtest/cli
     - name: register-components-and-run-job-step
-      run: bash test-component.sh ../../azureml-examples/cli/jobs/pipelines-with-components/basics/1a_e2e_local_components/pipeline.yml
+      run: bash test-component.sh ../../azureml-examples/cli/jobs/pipelines-with-components/basics/1a_e2e_local_components/pipeline.yml registry
       working-directory: AzureMLtest/cli
