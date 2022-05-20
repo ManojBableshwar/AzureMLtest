@@ -26,9 +26,12 @@ az ml environment create --file ../config/env.yml --version $version $reg_var  |
 
 c_file="../config/component.yml"
 c_version=$version
-for c_name in $(cat ../config/component.csv)
+
+while read line
 do
-  echo "az ml component create --file $c_file --name $c_name --version $c_version --set environment=azureml://registries/$REGISTRY/environments/public_image_example/labels/latest $reg_var "
+  c_name=$(echo $line | awk -F, {print $1})
+  c_display_name=$(echo $line | awk -F, {print $2})
+  echo "az ml component create --file $c_file --display_name="$c_display_name" --name $c_name --version $c_version --set environment=azureml://registries/$REGISTRY/environments/public_image_example/labels/latest $reg_var "
   az ml component create --file $c_file --name $c_name --version $c_version $reg_var  || {
       echo "Component create failed for c_name=$c_name"
       exit 1
@@ -38,4 +41,4 @@ do
       echo "Component show failed for --name $c_name --version $c_version"
       exit 1
   }
-done
+done < ../config/component.csv
