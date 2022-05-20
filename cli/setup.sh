@@ -12,7 +12,6 @@ then
 # else install private CLI
 else
     az extension add --source $CLI --yes || {
-#  az extension add --source https://azuremlsdktestpypi.blob.core.windows.net/wheels/azureml-v2-cli-e2e-test/62707480/ml-0.0.62707480-py3-none-any.whl --pip-extra-index-urls https://azuremlsdktestpypi.azureedge.net/azureml-v2-cli-e2e-test/62707480 --yes  || {
     echo "ML CLI installation failed"
     exit 1
   }
