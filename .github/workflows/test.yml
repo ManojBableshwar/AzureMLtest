@@ -8,6 +8,8 @@ env:
   REGISTRY: testFeed
 # set this if private CLI has to be installed, else comment out
   CLI: https://azuremlsdktestpypi.blob.core.windows.net/wheels/sdk-cli-v2/ml-0.0.61212840-py3-none-any.whl
+# set this env var if the CLI uses private preview features
+  AZURE_ML_CLI_PRIVATE_FEATURES_ENABLED: true
 
 
 jobs:
