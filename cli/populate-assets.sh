@@ -19,10 +19,14 @@ fi
 
 
 echo "az ml environment create --file ../config/env.yml --version $version $reg_var"
+start_time=`date +%s`
 az ml environment create --file ../config/env.yml --version $version $reg_var  || {
     echo "Env create failed for ../config/env.yml"
     exit 1
 }
+end_time=`date +%s`
+timetaken=$(expr $end_time - $start_time)
+echo "Time taken: $timetaken seconds"
 
 echo "az ml environment show --name publicimageexample --version $version $reg_var"
 az ml environment show --name publicimageexample --version $version $reg_var  || {
@@ -37,11 +41,15 @@ while read line
 do
   c_name=$(echo $line | awk -F, '{print $1}')
   c_display_name=$(echo $line | awk -F, '{print $2}')
-  echo "az ml component create --file $c_file --display_name="$c_display_name" --name $c_name --version $c_version --set environment=azureml://registries/$REGISTRY/environments/publicimageexample/labels/latest $reg_var "
-  az ml component create --file $c_file --name $c_name --version $c_version --set environment=azureml://registries/$REGISTRY/environments/publicimageexample/versions/$version $reg_var  || {
+  echo "az ml component create --file $c_file --display_name=\"$c_display_name\" --name $c_name --version $c_version --set environment=azureml://registries/$REGISTRY/environments/publicimageexample/labels/latest $reg_var "
+  start_time=`date +%s`
+  az ml component create --file $c_file --display_name="$c_display_name" --name $c_name --version $c_version --set environment=azureml://registries/$REGISTRY/environments/publicimageexample/versions/$version $reg_var  || {
       echo "Component create failed for c_name=$c_name"
       exit 1
   }
+  end_time=`date +%s`
+  timetaken=$(expr $end_time - $start_time)
+  echo "Time taken: $timetaken seconds"
   echo "az ml component show --name $c_name --version $c_version $reg_var"
   az ml component show --name $c_name --version $c_version $reg_var || {
       echo "Component show failed for --name $c_name --version $c_version"
