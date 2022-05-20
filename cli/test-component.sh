@@ -54,7 +54,7 @@ echo "Git url for this sample: $gitdirurl"
 
 for job in $( yq eval '.jobs | keys' $pyml | awk  '{print $2}' )
 do
-  echo "job name: $job"
+  echo "Registering component used in job: $job"
   c_file=$( yq eval ".jobs.$job.component" $pyml | sed 's/file://' )
   echo "component file: $c_file"
   c_name=$(yq eval '.name' $c_file)
