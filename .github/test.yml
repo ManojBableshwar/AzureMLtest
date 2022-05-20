@@ -1,0 +1,31 @@
+on: 
+  push:
+
+env:
+  GROUP: junqitest-rg
+  LOCATION: centraluseuap
+  WORKSPACE: junqitest
+  REGISTRY: testFeed
+# set this if private CLI has to be installed, else comment out
+  CLI: https://azuremlsdktestpypi.blob.core.windows.net/wheels/sdk-cli-v2/ml-0.0.61212840-py3-none-any.whl
+
+
+jobs:
+  list-components-job:
+    runs-on: ubuntu-latest
+    steps:
+    - name: check-out-this-repo-step
+      uses: actions/checkout@v2
+    - name: check-out-azureml-examples-repo-step
+      uses: actions/checkout@v3
+      with:
+        repository: Azure/azureml-examples
+    - name: azure-login-step
+      uses: azure/login@v1
+      with:
+        creds: ${{secrets.AZ_CREDS}}
+    - run: ls -l $GITHUB_WORKSPACE
+    - name: set-azureml-ws-context-step
+      run: bash setup.sh 
+      working-directory: cli
+    - run: ls -l $GITHUB_WORKSPACE
