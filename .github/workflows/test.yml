@@ -42,6 +42,7 @@ jobs:
       component_sample_matrix: ${{ steps.list-component-samples-step.outputs.sample_matrix }}
   test-component-job:
     needs: list-components-job
+    if: always() 
     runs-on: ubuntu-latest
     strategy:
 #      max-parallel: 1
