@@ -2,6 +2,8 @@
 pyml_full=$1
 mode=$2
 
+export AZURE_ML_CLI_PRIVATE_FEATURES_ENABLED=true
+
 if [[ $mode == "registry" ]]
 then
   if [[ -z "$REGISTRY" ]]
