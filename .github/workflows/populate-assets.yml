@@ -12,7 +12,7 @@ env:
 
 
 jobs:
-  populate-assets-job:
+  create-asset:
     runs-on: ubuntu-latest
     steps:
     - name: check-out-this-repo-step

@@ -18,6 +18,7 @@ else
   echo "Using WORKSPACE=$WORKSPACE to create assets..."
 fi
 
+c_file="../config/component.yml"
 c_version=$version
 
 c_display_name=$(cat ../config/component.csv | grep "$c_name" | awk -F, '{print $2}')
