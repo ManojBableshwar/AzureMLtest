@@ -57,8 +57,8 @@ do
       echo "Component create failed for c_file=$c_file"
       exit 1
   }
-  echo "az ml component show --name $c_name --version $c_version"
-  az ml component show --name $c_name --version $c_version || {
+  echo "az ml component show --name $c_name --version $c_version $reg_var"
+  az ml component show --name $c_name --version $c_version $reg_var || {
       echo "Component show failed for --name $c_name --version $c_version"
       exit 1
   }

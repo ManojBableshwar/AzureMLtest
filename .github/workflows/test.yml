@@ -40,9 +40,8 @@ jobs:
       working-directory: AzureMLtest/cli
     outputs:
       component_sample_matrix: ${{ steps.list-component-samples-step.outputs.sample_matrix }}
-  test-component-job:
+  test-component-workspace:
     needs: list-components-job
-    if: always() 
     runs-on: ubuntu-latest
     strategy:
 #      max-parallel: 1
@@ -68,6 +67,30 @@ jobs:
     - name: register-components-and-run-job-workspace-step
       run: bash test-component.sh ${{ matrix.component_sample }} workspace
       continue-on-error: true
+      working-directory: AzureMLtest/cli
+  test-component-registry:
+    needs: list-components-job
+    runs-on: ubuntu-latest
+    strategy:
+#      max-parallel: 1
+      matrix:
+        component_sample: ${{ fromJson(needs.list-components-job.outputs.component_sample_matrix) }}
+    steps:
+    - name: check-out-this-repo-step
+      uses: actions/checkout@v2
+      with:
+        path: AzureMLtest
+    - name: check-out-azureml-examples-repo-step
+      uses: actions/checkout@v3
+      with:
+        repository: Azure/azureml-examples
+        path: azureml-examples
+    - name: azure-login-step
+      uses: azure/login@v1
+      with:
+        creds: ${{secrets.AZ_CREDS}}
+    - name: set-azureml-ws-context-step
+      run: bash setup.sh 
       working-directory: AzureMLtest/cli
     - name: register-components-and-run-job-registry-step
       run: bash test-component.sh ${{ matrix.component_sample }} registry
