@@ -44,6 +44,14 @@ fi
 unixepoch=$(date +"%s")
 c_version=$(( $unixepoch + $RANDOM ))
 
+gitroot=$(git rev-parse --show-toplevel)
+cur_dir=$(pwd)
+gitrepourl=$(git config --get remote.origin.url | sed 's|\.git||')
+relativepath=$(echo $cur_dir | sed "s|$gitroot||")
+gitbranch=$(git name-rev --name-only HEAD)
+gitdirurl=$gitrepourl"/tree/"$gitbranch$relativepath
+echo "Git url for this sample: $gitdirurl"
+
 for job in $( yq eval '.jobs | keys' $pyml | awk  '{print $2}' )
 do
   echo "job name: $job"
@@ -51,6 +59,8 @@ do
   echo "component file: $c_file"
   c_name=$(yq eval '.name' $c_file)
 #  echo "az ml component create --file $c_file --version $c_version --set environment=azureml://registries/azureml/environments/AzureML-sklearn-0.24-ubuntu18.04-py37-cpu/labels/latest $reg_var "
+  c_file_no_cur_dir=echo $c_file | sed 's/\.//'
+  echo "Git url for this component: $gitdirurl$c_file_no_cur_dir"
   echo "az ml component create --file $c_file --version $c_version $reg_var"
 #  az ml component create --file $c_file --version $c_version $reg_var --set jobs.$job.environment=azureml://registries/azureml/environments/AzureML-sklearn-0.24-ubuntu18.04-py37-cpu/labels/latest || {
   az ml component create --file $c_file --version $c_version $reg_var  || {
@@ -70,6 +80,7 @@ do
   fi
 done
 
+echo "Git url for this job: $gitdirurl/$pyml"
 echo "$cli_dir/create-job.sh $pyml $set_var"
 bash $cli_dir/create-job.sh $pyml $set_var
   
