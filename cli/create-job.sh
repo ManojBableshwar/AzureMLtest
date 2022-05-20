@@ -1,9 +1,6 @@
 job=$1
 set_var=$2
 
-# enable PRP features 
-export AZURE_ML_CLI_PRIVATE_FEATURES_ENABLED=true 
-
 if [[ -z "$set_var" ]]
 then
   echo "az ml job create --file $job --query name -o tsv"

@@ -11,9 +11,6 @@ else
     az extension add --source $CLI --yes
 fi
 
-# enable PRP features 
-export AZURE_ML_CLI_PRIVATE_FEATURES_ENABLED=true 
-
 echo "CLI version:"
 az version
 

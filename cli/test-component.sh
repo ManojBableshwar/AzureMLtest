@@ -10,7 +10,7 @@ then
     exit 1
   else
     echo "Using REGISTRY=$REGISTRY to create assets..."
-    reg_var="--registry_name=$REGISTRY"
+    reg_var="--registry-name=$REGISTRY"
   fi
 else
   echo "Using WORKSPACE=$WORKSPACE to create assets..."
