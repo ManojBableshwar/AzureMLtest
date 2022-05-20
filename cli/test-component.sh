@@ -41,7 +41,8 @@ else
   echo "Using WORKSPACE=$WORKSPACE to create assets..."
 fi
 
-c_version=$(date +"%s")
+unixepoch=$(date +"%s")
+c_version=$(( $unixepoch + $RANDOM ))
 
 for job in $( yq eval '.jobs | keys' $pyml | awk  '{print $2}' )
 do
@@ -49,8 +50,10 @@ do
   c_file=$( yq eval ".jobs.$job.component" $pyml | sed 's/file://' )
   echo "component file: $c_file"
   c_name=$(yq eval '.name' $c_file)
-  echo "az ml component create --file $c_file --version $c_version --set environment=azureml://registries/azureml/environments/AzureML-sklearn-0.24-ubuntu18.04-py37-cpu/labels/latest $reg_var "
-  az ml component create --file $c_file --version $c_version $reg_var --set jobs.$job.environment=azureml://registries/azureml/environments/AzureML-sklearn-0.24-ubuntu18.04-py37-cpu/labels/latest || {
+#  echo "az ml component create --file $c_file --version $c_version --set environment=azureml://registries/azureml/environments/AzureML-sklearn-0.24-ubuntu18.04-py37-cpu/labels/latest $reg_var "
+  echo "az ml component create --file $c_file --version $c_version $reg_var"
+#  az ml component create --file $c_file --version $c_version $reg_var --set jobs.$job.environment=azureml://registries/azureml/environments/AzureML-sklearn-0.24-ubuntu18.04-py37-cpu/labels/latest || {
+  az ml component create --file $c_file --version $c_version $reg_var  || {
       echo "Component create failed for c_file=$c_file"
       exit 1
   }

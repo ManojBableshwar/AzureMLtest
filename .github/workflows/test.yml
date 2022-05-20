@@ -36,7 +36,7 @@ jobs:
     - name: list-component-samples-step
       id: list-component-samples-step
 #      run: bash list-component-samples.sh
-      run: echo '::set-output name=sample_matrix::["basics/1a_e2e_local_components"]'
+      run: echo '::set-output name=sample_matrix::["basics/5a_env_public_docker_image", "basics/5c_env_conda_file"]'
       working-directory: AzureMLtest/cli
     outputs:
       component_sample_matrix: ${{ steps.list-component-samples-step.outputs.sample_matrix }}
@@ -44,7 +44,7 @@ jobs:
     needs: list-components-job
     runs-on: ubuntu-latest
     strategy:
-      max-parallel: 1
+#      max-parallel: 1
       matrix:
         component_sample: ${{ fromJson(needs.list-components-job.outputs.component_sample_matrix) }}
     steps:
