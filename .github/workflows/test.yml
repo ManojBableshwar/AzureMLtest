@@ -1,4 +1,4 @@
-#on: push
+on: push
 
 env:
   GROUP: junqitest-rg
@@ -34,6 +34,7 @@ jobs:
 #      run: bash setup.sh 
 #      working-directory: AzureMLtest/cli
     - name: list-component-samples-step
+      id: list-component-samples-step
       run: bash list-component-samples.sh
       working-directory: AzureMLtest/cli
     outputs:
