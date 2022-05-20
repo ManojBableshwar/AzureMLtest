@@ -4,7 +4,7 @@ env:
   GROUP: junqitest-rg
   LOCATION: centraluseuap
   WORKSPACE: junqitest
-  REGISTRY: testFeed
+  REGISTRY: ContosoML
 # set this if private CLI has to be installed, else comment out
   CLI: https://azuremlsdktestpypi.blob.core.windows.net/wheels/sdk-cli-v2/ml-0.0.63239653-py3-none-any.whl
 # set this env var if the CLI uses private preview features
