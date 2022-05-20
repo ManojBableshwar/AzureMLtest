@@ -1,5 +1,29 @@
-pyml_full=$1
+sample=$1
 mode=$2
+
+if [[ -z "$COMPONENT_SAMPLE_ROOT" ]]
+then
+    echo "env var COMPONENT_SAMPLE_ROOT not set"
+    exit 1
+fi
+
+if [[ -z "$PIPELINE_YAML" ]]
+then
+    echo "env var PIPELINE_YAML not set"
+    exit 1
+fi
+
+pyml=$PIPELINE_YAML
+
+if [[ -z "$sample" ]]
+then
+    echo "parameter sample not set"
+    exit 1
+fi
+
+cli_dir=$(pwd)
+cd $COMPONENT_SAMPLE_ROOT
+cd $sample
 
 if [[ $mode == "registry" ]]
 then
@@ -15,17 +39,9 @@ else
   echo "Using WORKSPACE=$WORKSPACE to create assets..."
 fi
 
-if [[ -z "$pyml_full" ]]
-then
-    echo "pipeline file name missing"
-    exit 1
-fi
 
-dir=$(dirname $pyml_full)
-pyml=$(basename $pyml_full)
-cli_dir=$(pwd)
 
-cd $dir
+
 
 c_version=$(date +"%s")
 

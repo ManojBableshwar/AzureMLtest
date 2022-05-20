@@ -10,6 +10,8 @@ env:
   CLI: https://azuremlsdktestpypi.blob.core.windows.net/wheels/sdk-cli-v2/ml-0.0.61212840-py3-none-any.whl
 # set this env var if the CLI uses private preview features
   AZURE_ML_CLI_PRIVATE_FEATURES_ENABLED: true
+  COMPONENT_SAMPLE_ROOT: ../../azureml-examples/cli/jobs/pipelines-with-components/
+  PIPELINE_YAML: pipeline.yml
 
 
 jobs:
@@ -33,5 +35,5 @@ jobs:
       run: bash setup.sh 
       working-directory: AzureMLtest/cli
     - name: register-components-and-run-job-step
-      run: bash test-component.sh ../../azureml-examples/cli/jobs/pipelines-with-components/basics/1a_e2e_local_components/pipeline.yml registry
+      run: bash test-component.sh basics/1a_e2e_local_components workspace
       working-directory: AzureMLtest/cli
