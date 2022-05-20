@@ -1,9 +1,10 @@
 on: push
 
 env:
-  GROUP: junqitest-rg
-  LOCATION: centraluseuap
-  WORKSPACE: junqitest
+  SUB: 21d8f407-c4c4-452e-87a4-e609bfb86248
+  GROUP: rg-contoso-819prod
+  LOCATION: eastus
+  WORKSPACE: mlw-contoso-819prod
   REGISTRY: ContosoML
 # uncommeting this run all commands in debug mode
   DEBUG: "--debug"

@@ -40,7 +40,15 @@ then
     exit 1
 fi
 
+if [[ -z "$SUB" ]]
+then
+    echo "SUB env var not set"
+    exit 1
+fi
+
 # Use defaults if not passed by workflow inputs
+
+az account set -s $SUB
 
 echo "Setting defaults: group=$GROUP workspace=$WORKSPACE location=$LOCATION"
 
