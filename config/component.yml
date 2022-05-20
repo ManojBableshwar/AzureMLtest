@@ -1,0 +1,5 @@
+name: placeholder
+version: placeholder
+command: echo hello
+environment: 
+  image: docker.io/python
