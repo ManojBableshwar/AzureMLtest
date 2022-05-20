@@ -29,6 +29,7 @@ jobs:
         creds: ${{secrets.AZ_CREDS}}
     - run: pwd
     - run: ls -l  $GITHUB_WORKSPACE
+    - run: ls -l  $GITHUB_WORKSPACE/this
    # - name: set-azureml-ws-context-step
    #   run: bash setup.sh 
    #   working-directory: $GITHUB_WORKSPACE/this/AzureMLtest/cli
