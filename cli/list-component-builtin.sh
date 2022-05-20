@@ -16,9 +16,9 @@ else
 fi
 
 
-echo "az ml environment create --file ../config/env.yml --version $version $reg_var"
+echo "az ml environment create --file ../config/env.yml --version $version $reg_var $DEBUG"
 start_time=`date +%s`
-az ml environment create --file ../config/env.yml --version $version $reg_var  || {
+az ml environment create --file ../config/env.yml --version $version $reg_var $DEBUG || {
     echo "Env create failed for ../config/env.yml"
     exit 1
 }
@@ -26,8 +26,8 @@ end_time=`date +%s`
 timetaken=$(expr $end_time - $start_time)
 echo "Time taken: $timetaken seconds"
 
-echo "az ml environment show --name publicimageexample --version $version $reg_var"
-az ml environment show --name publicimageexample --version $version $reg_var  || {
+echo "az ml environment show --name publicimageexample --version $version $reg_var $DEBUG"
+az ml environment show --name publicimageexample --version $version $reg_var $DEBUG || {
     echo "Env show failed for --name publicimageexample --version $version"
     exit 1
 }
