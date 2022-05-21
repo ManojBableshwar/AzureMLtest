@@ -16,6 +16,7 @@ env:
   PIPELINE_YAML: pipeline.yml
 
 
+
 jobs:
   list-components-job:
     runs-on: ubuntu-latest
