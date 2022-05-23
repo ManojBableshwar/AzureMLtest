@@ -15,8 +15,6 @@ env:
   COMPONENT_SAMPLE_ROOT: ../../azureml-examples/cli/jobs/pipelines-with-components/
   PIPELINE_YAML: pipeline.yml
 
-
-
 jobs:
   list-components-job:
     runs-on: ubuntu-latest
