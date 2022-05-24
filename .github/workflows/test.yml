@@ -5,10 +5,11 @@ env:
   LOCATION: centraluseuap
   WORKSPACE: junqitest
   REGISTRY: testFeed
+  SUB: ea4faa5b-5e44-4236-91f6-5483d5b17d14
 # set this if private CLI has to be installed, else comment out
-  CLI: https://azuremlsdktestpypi.blob.core.windows.net/wheels/sdk-cli-v2/ml-0.0.63239653-py3-none-any.whl
+#  CLI: https://azuremlsdktestpypi.blob.core.windows.net/wheels/sdk-cli-v2/ml-0.0.63239653-py3-none-any.whl
 # set this env var if the CLI uses private preview features
-  AZURE_ML_CLI_PRIVATE_FEATURES_ENABLED: true
+#  AZURE_ML_CLI_PRIVATE_FEATURES_ENABLED: true
   COMPONENT_SAMPLE_ROOT: ../../azureml-examples/cli/jobs/pipelines-with-components/
   PIPELINE_YAML: pipeline.yml
 
