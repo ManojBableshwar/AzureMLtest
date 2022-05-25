@@ -8,6 +8,7 @@ env:
   SUB: ea4faa5b-5e44-4236-91f6-5483d5b17d14
 # set this if private CLI has to be installed, else comment out
 #  CLI: https://azuremlsdktestpypi.blob.core.windows.net/wheels/sdk-cli-v2/ml-0.0.63239653-py3-none-any.whl
+  CLI: https://azuremlsdktestpypi.blob.core.windows.net/wheels/sdk-cli-v2/ml-0.0.63572232-py3-none-any.whl
 # set this env var if the CLI uses private preview features
 #  AZURE_ML_CLI_PRIVATE_FEATURES_ENABLED: true
   COMPONENT_SAMPLE_ROOT: ../../azureml-examples/cli/jobs/pipelines-with-components/
@@ -36,8 +37,8 @@ jobs:
 #      working-directory: AzureMLtest/cli
     - name: list-component-samples-step
       id: list-component-samples-step
-      run: bash list-component-samples.sh
-#      run: echo '::set-output name=sample_matrix::["basics/5a_env_public_docker_image", "basics/5c_env_conda_file"]'
+#      run: bash list-component-samples.sh
+      run: echo '::set-output name=sample_matrix::["basics/5a_env_public_docker_image", "basics/5c_env_conda_file"]'
       working-directory: AzureMLtest/cli
     outputs:
       component_sample_matrix: ${{ steps.list-component-samples-step.outputs.sample_matrix }}
@@ -46,7 +47,7 @@ jobs:
     needs: list-components-job
     runs-on: ubuntu-latest
     strategy:
-#      max-parallel: 1
+      max-parallel: 1
       matrix:
         component_sample: ${{ fromJson(needs.list-components-job.outputs.component_sample_matrix) }}
     steps:
@@ -71,11 +72,11 @@ jobs:
       continue-on-error: true
       working-directory: AzureMLtest/cli
   test-component-registry:
-    if: ${{ false }}  # disable for now
+    #if: ${{ false }}  # disable for now
     needs: list-components-job
     runs-on: ubuntu-latest
     strategy:
-#      max-parallel: 1
+      max-parallel: 1
       matrix:
         component_sample: ${{ fromJson(needs.list-components-job.outputs.component_sample_matrix) }}
     steps:
