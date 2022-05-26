@@ -58,12 +58,12 @@ do
   c_file=$( yq eval ".jobs.$job.component" $pyml | sed 's/file://' )
   echo "component file: $c_file"
   c_name=$(yq eval '.name' $c_file)
-#  echo "az ml component create --file $c_file --version $c_version --set environment=azureml://registries/azureml/environments/AzureML-sklearn-0.24-ubuntu18.04-py37-cpu/labels/latest $reg_var "
+  echo "az ml component create --file $c_file --version $c_version $reg_var --set jobs.$job.environment=azureml://registries/azureml-dev/environments/tensorflow-2.8-ubuntu20.04-py38-cuda11-gpu/versions/1.pre63270058"
   c_file_no_cur_dir=$(echo $c_file | sed 's/\.//')
   echo "Git url for this component: $gitdirurl$c_file_no_cur_dir"
   echo "az ml component create --file $c_file --version $c_version $reg_var $DEBUG"
-#  az ml component create --file $c_file --version $c_version $reg_var --set jobs.$job.environment=azureml://registries/azureml/environments/AzureML-sklearn-0.24-ubuntu18.04-py37-cpu/labels/latest || {
-  az ml component create --file $c_file --version $c_version $reg_var $DEBUG  || {
+  az ml component create --file $c_file --version $c_version $reg_var --set jobs.$job.environment=azureml://registries/azureml-dev/environments/tensorflow-2.8-ubuntu20.04-py38-cuda11-gpu/versions/1.pre63270058 || {
+#  az ml component create --file $c_file --version $c_version $reg_var $DEBUG  || {
       echo "Component create failed for c_file=$c_file"
       exit 1
   }
