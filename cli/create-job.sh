@@ -5,12 +5,12 @@ echo "Private preview features enabled? AZURE_ML_CLI_PRIVATE_FEATURES_ENABLED=$A
 
 if [[ -z "$set_var" ]]
 then
-  echo "az ml job create --file $job --query name -o tsv"
-  export run_id=$(az ml job create --file $job --query name -o tsv)
+  echo "az ml job create --file $job --query name -o tsv $DEBUG"
+  export run_id=$(az ml job create --file $job --query name -o tsv $DEBUG)
 else
   set_var=$(echo $set_var | sed 's/,/ /g')
-  echo "az ml job create --file $job --set $set_var --query name -o tsv"
-  export run_id=$(az ml job create --file $job --set $set_var --query name -o tsv)
+  echo "az ml job create --file $job --set $set_var --query name -o tsv $DEBUG"
+  export run_id=$(az ml job create --file $job --set $set_var --query name -o tsv $DEBUG)
 fi
 
 #export run_uri=$(az ml job show --name $run_id --query services.Studio.endpoint)
@@ -24,7 +24,7 @@ fi
 
 az ml job show --name $run_id
 
-status=$(az ml job show --name $run_id --query status -o tsv)
+status=$(az ml job show --name $run_id --query status -o tsv $DEBUG)
 
 if [[ -z "$status" ]]
 then
@@ -32,7 +32,7 @@ then
     exit 4
 fi
 
-job_uri=$(az ml job show --name $run_id --query services.Studio.endpoint)
+job_uri=$(az ml job show --name $run_id --query services.Studio.endpoint $DEBUG)
 
 echo $job_uri
 
