@@ -1,7 +1,7 @@
 job=$1
 set_var=$2
 
-echo "Private preview features enabled? AZURE_ML_CLI_PRIVATE_FEATURES_ENABLED=$AZURE_ML_CLI_PRIVATE_FEATURES_ENABLED"
+echo "Private preview features enabled? AZURE_ML_CLI_PRIVATE_FEATURES_ENABLEDk=$AZURE_ML_CLI_PRIVATE_FEATURES_ENABLED"
 
 if [[ -z "$set_var" ]]
 then

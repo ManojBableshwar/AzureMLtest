@@ -1,6 +1,7 @@
 on: push
 
 env:
+  SUB: ea4faa5b-5e44-4236-91f6-5483d5b17d14
   GROUP: junqitest-rg
   LOCATION: centraluseuap
   WORKSPACE: junqitest
