@@ -4,7 +4,7 @@ env:
   GROUP: junqitest-rg
   LOCATION: centraluseuap
   WORKSPACE: junqitest
-  REGISTRY: azureml-dev
+  REGISTRY: testFeed
   SUB: ea4faa5b-5e44-4236-91f6-5483d5b17d14
 # uncommeting this run all commands in debug mode
   DEBUG: "--debug"
@@ -40,8 +40,8 @@ jobs:
     - name: list-component-samples-step
       id: list-component-samples-step
 #      run: bash list-component-samples.sh
-#      run: echo '::set-output name=sample_matrix::["basics/5a_env_public_docker_image", "basics/5c_env_conda_file"]'
-      run: echo '::set-output name=sample_matrix::["basics/1a_e2e_local_components"]'
+      run: echo '::set-output name=sample_matrix::["basics/5a_env_public_docker_image", "basics/5c_env_conda_file"]'
+#      run: echo '::set-output name=sample_matrix::["basics/1a_e2e_local_components"]'
       working-directory: AzureMLtest/cli
     outputs:
       component_sample_matrix: ${{ steps.list-component-samples-step.outputs.sample_matrix }}
