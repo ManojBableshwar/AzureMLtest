@@ -14,7 +14,7 @@ env:
 #  CLI: https://azuremlsdktestpypi.blob.core.windows.net/wheels/sdk-cli-v2/ml-0.0.63572232-py3-none-any.whl
 # set this env var if the CLI uses private preview features
   AZURE_ML_CLI_PRIVATE_FEATURES_ENABLED: true
-  COMPONENT_SAMPLE_ROOT: ../../azureml-examples/cli/jobs/pipelines-with-components/nyc_taxi_data_regression/
+  COMPONENT_SAMPLE_ROOT: azureml-examples/cli/jobs/pipelines-with-components/nyc_taxi_data_regression/
   PIPELINE_YAML: pipeline.yml
 
 
