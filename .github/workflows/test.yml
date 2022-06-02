@@ -3,9 +3,9 @@ on:
 
 env:
   GROUP: junqitest-rg
-  LOCATION: centraluseuap
-  WORKSPACE: junqitest
-  REGISTRY: testFeed
+  LOCATION: eastus2euap
+  WORKSPACE: junqicanary-ws
+  REGISTRY: junqicanary-newregistry
   SUB: ea4faa5b-5e44-4236-91f6-5483d5b17d14
 # uncommeting this run all commands in debug mode
   DEBUG: "--debug"
