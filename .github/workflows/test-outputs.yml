@@ -45,7 +45,6 @@ jobs:
     outputs:
       PIPELINE_RUNID: ${{ steps.create-pipeline-job-step.outputs.RUNID }}
   download-pipeline-outputs-job:
-    options: --user root
     needs: create-pipeline-job
     runs-on: ubuntu-latest
     steps:
