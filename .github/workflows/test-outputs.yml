@@ -1,0 +1,47 @@
+on: 
+  push:
+
+env:
+  SUB: 21d8f407-c4c4-452e-87a4-e609bfb86248
+  GROUP: rg-contoso-819prod
+  LOCATION: eastus
+  WORKSPACE: mlw-contoso-819prod
+  REGISTRY: ContosoML
+# uncommeting this run all commands in debug mode
+#  DEBUG: "--debug"
+# set this if private CLI has to be installed, else comment out
+#  CLI: https://azuremlsdktestpypi.blob.core.windows.net/wheels/sdk-cli-v2/ml-0.0.63239653-py3-none-any.whl
+#  CLI: https://azuremlsdktestpypi.blob.core.windows.net/wheels/sdk-cli-v2/ml-0.0.63572232-py3-none-any.whl
+# set this env var if the CLI uses private preview features
+  AZURE_ML_CLI_PRIVATE_FEATURES_ENABLED: true
+  COMPONENT_SAMPLE_ROOT: ../../azureml-examples/cli/jobs/pipelines-with-components/nyc_taxi_data_regression/
+  PIPELINE_YAML: pipeline.yml
+
+
+jobs:
+  create-pipeline-job:
+    runs-on: ubuntu-latest
+    steps:
+    - name: check-out-this-repo-step
+      uses: actions/checkout@v2
+      with:
+        path: AzureMLtest
+    - name: check-out-azureml-examples-repo-step
+      uses: actions/checkout@v3
+      with:
+        repository: Azure/azureml-examples
+        path: azureml-examples
+    - name: azure-login-step
+      uses: azure/login@v1
+      with:
+        creds: ${{secrets.AZ_CREDS}}
+    - name: set-azureml-ws-context-step
+      run: bash setup.sh 
+      working-directory: AzureMLtest/cli
+    - name: create-pipeline-job-step
+      id: create-pipeline-job-step
+      run: bash AzureMLtest/cli/create-job.sh ${{ env.PIPELINE_YAML }}
+      working-directory: ${{ env.COMPONENT_SAMPLE_ROOT }}
+    outputs:
+      PIPELINE_RUNID: ${{ steps.create-pipeline-job-step.outputs.RUNID }}
+  
