@@ -1,4 +1,4 @@
-
+set -x
 run_id=$1
 
 if [[ -z "$run_id" ]]
@@ -19,8 +19,8 @@ az ml job download --name $run_id --all --path $BASE_DIR/all $DEBUG || {
 
 for output in $(az ml job show --name $run_id --query "outputs | keys(@)"  | head -n -1 | tail -n +2 | sed 's/[", ]//g')
 do
-    az ml job download --name $run_id --output-name $output --path $BASE_DIR/each  $DEBUG || {
-        echo "az ml job download --name $run_id --output-name $output --path $BASE_DIR/each  failed"
+    az ml job download --name $run_id --output-name $output --download-path $BASE_DIR/each  $DEBUG || {
+        echo "az ml job download --name $run_id --output-name $output --download-path $BASE_DIR/each  failed"
         exit 1
     }
 done
