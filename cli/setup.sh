@@ -60,8 +60,24 @@ az configure --defaults group=$GROUP workspace=$WORKSPACE location=$LOCATION
 VERSION=v4.4.0
 BINARY=yq_linux_amd64
 
-wget https://github.com/mikefarah/yq/releases/download/${VERSION}/${BINARY}.tar.gz -O - |  tar xz && mv ${BINARY} /usr/bin/yq
+wget https://github.com/mikefarah/yq/releases/download/${VERSION}/${BINARY}.tar.gz -O - |  tar xz && mv ${BINARY} /usr/bin/yq || {
+    echo "yq install failed"
+    exit 1
+}
 
-yq --help
+yq --help || {
+    echo "yq not available"
+    exit 1
+}
+
+apt install tree || {
+    echo "tree install failed"
+    exit 1
+}
+
+tree ./ || {
+    echo "tree not available"
+    exit 1
+}
 
 

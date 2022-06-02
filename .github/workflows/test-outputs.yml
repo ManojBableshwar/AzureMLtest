@@ -43,4 +43,29 @@ jobs:
       working-directory: AzureMLtest/cli
     outputs:
       PIPELINE_RUNID: ${{ steps.create-pipeline-job-step.outputs.RUNID }}
+  download-pipeline-outputs-job:
+    needs: create-pipeline-job
+    runs-on: ubuntu-latest
+    steps:
+    - name: check-out-this-repo-step
+      uses: actions/checkout@v2
+      with:
+        path: AzureMLtest
+    - name: check-out-azureml-examples-repo-step
+      uses: actions/checkout@v3
+      with:
+        repository: Azure/azureml-examples
+        path: azureml-examples
+    - name: azure-login-step
+      uses: azure/login@v1
+      with:
+        creds: ${{secrets.AZ_CREDS}}
+    - name: set-azureml-ws-context-step
+      run: bash setup.sh 
+      working-directory: AzureMLtest/cli
+    - name: create-pipeline-job-step
+      id: create-pipeline-job-step
+      run: bash download-job-outputs.sh  ${{ needs.create-pipeline-job.outputs.PIPELINE_RUNID }} 
+      working-directory: AzureMLtest/cli
+
   
