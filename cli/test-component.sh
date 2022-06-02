@@ -81,6 +81,7 @@ do
   fi
 done
 
+set_var="$set_var,display_name=$sample-$mode-$c_version"
 
 echo "Git url for this job: $gitdirurl/$pyml"
 echo "$cli_dir/create-job.sh $pyml $set_var"
