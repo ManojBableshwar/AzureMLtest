@@ -1,5 +1,6 @@
 c_name=$1
-mode=$2
+env_version=$2
+mode=$3
 
 unixepoch=$(date +"%s")
 version=$(( $unixepoch + $RANDOM ))
@@ -22,9 +23,9 @@ c_file="../config/component.yml"
 c_version=$version
 
 c_display_name=$(cat ../config/component.csv | grep "$c_name" | awk -F, '{print $2}')
-echo "az ml component create --file $c_file --name $c_name --version $c_version --set display_name=\"$c_display_name\" environment=azureml://registries/$REGISTRY/environments/publicimageexample/labels/latest $reg_var $DEBUG "
+echo "az ml component create --file $c_file --name $c_name --version $c_version --set display_name=\"$c_display_name\" environment=azureml://registries/$REGISTRY/environments/publicimageexample/versions/$env_version $reg_var $DEBUG "
 start_time=`date +%s`
-az ml component create --file $c_file --name $c_name --version $c_version --set display_name="$c_display_name" environment=azureml://registries/$REGISTRY/environments/publicimageexample/labels/latest $reg_var $DEBUG || {
+az ml component create --file $c_file --name $c_name --version $c_version --set display_name="$c_display_name" environment=azureml://registries/$REGISTRY/environments/publicimageexample/versions/$env_version $reg_var $DEBUG || {
     echo "Component create failed for c_name=$c_name"
     exit 1
 }

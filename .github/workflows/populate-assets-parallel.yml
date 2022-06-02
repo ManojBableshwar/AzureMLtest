@@ -42,6 +42,7 @@ jobs:
       working-directory: AzureMLtest/cli
     outputs:
       component_sample_matrix: ${{ steps.list-component-samples-step.outputs.sample_matrix }}
+      list_env_version: ${{ steps.list-component-samples-step.outputs.env_version }}
   asset-create:
     needs: list-components-job
     runs-on: ubuntu-latest
@@ -67,6 +68,6 @@ jobs:
       run: bash setup.sh 
       working-directory: AzureMLtest/cli
     - name: populate-components
-      run: bash populate-assets-parallel.sh ${{ matrix.component_sample }} registry
+      run: bash populate-assets-parallel.sh ${{ matrix.component_sample }} ${{ needs.list-components-job.outputs.list_env_version }} registry
 #      continue-on-error: true
       working-directory: AzureMLtest/cli
