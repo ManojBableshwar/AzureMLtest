@@ -2,7 +2,7 @@ on:
   push:
 
 env:
-  GROUP: junqitest-rg
+  GROUP:  junqicanary-rg
   LOCATION: eastus2euap
   WORKSPACE: junqicanary-ws
   REGISTRY: junqicanary-newregistry
