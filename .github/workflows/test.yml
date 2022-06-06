@@ -15,7 +15,7 @@ env:
 # set this env var if the CLI uses private preview features
   AZURE_ML_CLI_PRIVATE_FEATURES_ENABLED: true
   COMPONENT_SAMPLE_ROOT: ../../azureml-examples/cli/jobs/pipelines-with-components/
-  COMPONENT_SAMPLE_ROOT: ../../azureml-examples/cli/assets/environment
+  ENVIRONMENT_SAMPLE_ROOT: ../../azureml-examples/cli/assets/environment
   PIPELINE_YAML: pipeline.yml
 
 
