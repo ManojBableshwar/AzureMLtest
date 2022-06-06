@@ -66,7 +66,7 @@ fi
 
 job_yml="../../jobs/basics/hello-world.yml"
 
-set_var="$set_var,display_name=$sample-$mode-$env_version"
+set_var="$set_var,display_name=$sample-job-$mode-$env_version"
 
 bash $cli_dir/create-job.sh $job_yml $set_var
   
