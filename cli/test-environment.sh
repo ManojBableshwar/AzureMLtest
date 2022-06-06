@@ -41,7 +41,7 @@ cur_dir=$(pwd)
 gitrepourl=$(git config --get remote.origin.url | sed 's|\.git||')
 relativepath=$(echo $cur_dir | sed "s|$gitroot||")
 gitbranch=$(git name-rev --name-only HEAD)
-gitdirurl=$gitrepourl"/tree/"$gitbranch$relativepath
+gitdirurl=$gitrepourl"/tree/"$gitbranch$relativepath/$sample
 echo "Git url for this sample: $gitdirurl"
 
 env_name=$(az ml environment create --file $sample --version $env_version --query name -o tsv $reg_var $DEBUG)
@@ -57,16 +57,33 @@ az ml environment show --name $env_name --version $env_version $reg_var $DEBUG |
     exit 1
 }
 
-if [[ $mode == "registry" ]]
-then
-  set_var="$set_var,environment=azureml://registries/$REGISTRY/environments/$env_name/versions/$env_version"
-else
-  set_var="$set_var,environment=azureml:$c_name:$env_version"
-fi
 
 job_yml="../../jobs/basics/hello-world.yml"
 
-set_var="$set_var,display_name=$sample-job-$mode-$env_version"
+if [[ $mode == "registry" ]]
+then
+  set_var="environment=azureml://registries/$REGISTRY/environments/$env_name/versions/$env_version"
+else
+  set_var="environment=azureml:$env_name:$env_version"
+fi
+
+set_var="$set_var,display_name=$sample-hello-world-$mode-$env_version"
 
 bash $cli_dir/create-job.sh $job_yml $set_var
   
+job_yml="../../jobs/basics/hello-pipeline.yml"
+
+if [[ $mode == "registry" ]]
+then
+  set_var="jobs.hello_job.environment=azureml://registries/$REGISTRY/environments/$env_name/versions/$env_version,jobs.world_job.environment=azureml://registries/$REGISTRY/environments/$env_name/versions/$env_version"
+else
+  set_var="jobs.hello_job.environment=azureml:$env_name:$env_version,jobs.world_job.environment=azureml:$env_name:$env_version"
+fi
+
+set_var="$set_var,display_name=$sample-hello-pipeline-$mode-$env_version"
+
+bash $cli_dir/create-job.sh $job_yml $set_var
+  
+
+
+
