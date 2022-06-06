@@ -9,8 +9,9 @@ fi
 
 BASE_DIR=/tmp/op-$run_id
 
+mkdir $BASE_DIR
 mkdir $BASE_DIR/all
-midir $BASE_DIR/each
+mkdir $BASE_DIR/each
 
 az ml job download --name $run_id --all --download-path $BASE_DIR/all $DEBUG || {
     echo "az ml job download --all failed"

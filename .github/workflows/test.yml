@@ -15,11 +15,13 @@ env:
 # set this env var if the CLI uses private preview features
   AZURE_ML_CLI_PRIVATE_FEATURES_ENABLED: true
   COMPONENT_SAMPLE_ROOT: ../../azureml-examples/cli/jobs/pipelines-with-components/
+  COMPONENT_SAMPLE_ROOT: ../../azureml-examples/cli/assets/environment
   PIPELINE_YAML: pipeline.yml
 
 
 jobs:
   list-components-job:
+    if: ${{ false }}  # disable for now
     runs-on: ubuntu-latest
     steps:
     - name: check-out-this-repo-step
@@ -46,7 +48,9 @@ jobs:
       working-directory: AzureMLtest/cli
     outputs:
       component_sample_matrix: ${{ steps.list-component-samples-step.outputs.sample_matrix }}
+
   test-component-workspace:
+    if: ${{ false }}  # disable for now
     continue-on-error: true 
     needs: list-components-job
     runs-on: ubuntu-latest
@@ -75,8 +79,9 @@ jobs:
       run: bash test-component.sh ${{ matrix.component_sample }} workspace
       continue-on-error: true
       working-directory: AzureMLtest/cli
+
   test-component-registry:
-    #if: ${{ false }}  # disable for now
+    if: ${{ false }}  # disable for now
     needs: list-components-job
     runs-on: ubuntu-latest
     strategy:
@@ -102,5 +107,34 @@ jobs:
       working-directory: AzureMLtest/cli
     - name: register-components-and-run-job-registry-step
       run: bash test-component.sh ${{ matrix.component_sample }} registry
+      continue-on-error: true
+      working-directory: AzureMLtest/cli
+  
+  test-environment-registry:
+    #if: ${{ false }}  # disable for now
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 1
+      matrix:
+        env_sample: ['docker-context.yml', 'docker-image-plus-conda.yml', 'docker-image.yml' ]
+    steps:
+    - name: check-out-this-repo-step
+      uses: actions/checkout@v2
+      with:
+        path: AzureMLtest
+    - name: check-out-azureml-examples-repo-step
+      uses: actions/checkout@v3
+      with:
+        repository: Azure/azureml-examples
+        path: azureml-examples
+    - name: azure-login-step
+      uses: azure/login@v1
+      with:
+        creds: ${{secrets.AZ_CREDS}}
+    - name: set-azureml-ws-context-step
+      run: bash setup.sh 
+      working-directory: AzureMLtest/cli
+    - name: create-environment-step
+      run: bash test-environment.sh ${{ matrix.env_sample }} registry
       continue-on-error: true
       working-directory: AzureMLtest/cli
