@@ -57,6 +57,20 @@ az ml environment show --name $env_name --version $env_version $reg_var $DEBUG |
     exit 1
 }
 
+job_yml="../../jobs/basics/hello-pipeline.yml"
+
+if [[ $mode == "registry" ]]
+then
+  set_var="jobs.hello_job.environment=azureml://registries/$REGISTRY/environments/$env_name/versions/$env_version,jobs.world_job.environment=azureml://registries/$REGISTRY/environments/$env_name/versions/$env_version"
+else
+  set_var="jobs.hello_job.environment=azureml:$env_name:$env_version,jobs.world_job.environment=azureml:$env_name:$env_version"
+fi
+
+set_var="$set_var,display_name=$sample-hello-pipeline-$mode-$env_version"
+
+bash $cli_dir/create-job.sh $job_yml $set_var
+  
+
 
 job_yml="../../jobs/basics/hello-world.yml"
 
@@ -68,19 +82,6 @@ else
 fi
 
 set_var="$set_var,display_name=$sample-hello-world-$mode-$env_version"
-
-bash $cli_dir/create-job.sh $job_yml $set_var
-  
-job_yml="../../jobs/basics/hello-pipeline.yml"
-
-if [[ $mode == "registry" ]]
-then
-  set_var="jobs.hello_job.environment=azureml://registries/$REGISTRY/environments/$env_name/versions/$env_version,jobs.world_job.environment=azureml://registries/$REGISTRY/environments/$env_name/versions/$env_version"
-else
-  set_var="jobs.hello_job.environment=azureml:$env_name:$env_version,jobs.world_job.environment=azureml:$env_name:$env_version"
-fi
-
-set_var="$set_var,display_name=$sample-hello-pipeline-$mode-$env_version"
 
 bash $cli_dir/create-job.sh $job_yml $set_var
   
