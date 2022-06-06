@@ -46,7 +46,7 @@ echo "Git url for this sample: $gitdirurl"
 
 env_name=$(az ml environment create --file $sample --version $env_version --query name -o tsv $reg_var $DEBUG)
 
-if [[ -z "$env_id" ]]
+if [[ -z "$env_name" ]]
 then
     echo "ENVIRONMENT create failed for e_file=$e_file"
     exit 1
