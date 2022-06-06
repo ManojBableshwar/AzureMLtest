@@ -18,7 +18,6 @@ env:
   ENVIRONMENT_SAMPLE_ROOT: ../../azureml-examples/cli/assets/environment
   PIPELINE_YAML: pipeline.yml
 
-
 jobs:
   list-components-job:
     if: ${{ false }}  # disable for now
