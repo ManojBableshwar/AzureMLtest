@@ -44,7 +44,7 @@ gitbranch=$(git name-rev --name-only HEAD)
 gitdirurl=$gitrepourl"/tree/"$gitbranch$relativepath
 echo "Git url for this sample: $gitdirurl"
 
-env_name=$(az ml environment create --file $e_file --version $env_version --query name -o tsv $reg_var $DEBUG)
+env_name=$(az ml environment create --file $sample --version $env_version --query name -o tsv $reg_var $DEBUG)
 
 if [[ -z "$env_id" ]]
 then
