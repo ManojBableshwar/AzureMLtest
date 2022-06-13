@@ -21,7 +21,7 @@ env:
 
 jobs:
   list-components-job:
-    if: ${{ false }}  # disable for now
+  #  if: ${{ false }}  # disable for now
     runs-on: ubuntu-latest
     steps:
     - name: check-out-this-repo-step
@@ -50,7 +50,7 @@ jobs:
       component_sample_matrix: ${{ steps.list-component-samples-step.outputs.sample_matrix }}
 
   test-component-workspace:
-    if: ${{ false }}  # disable for now
+  #  if: ${{ false }}  # disable for now
     continue-on-error: true 
     needs: list-components-job
     runs-on: ubuntu-latest
