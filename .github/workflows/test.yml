@@ -81,7 +81,7 @@ jobs:
       working-directory: AzureMLtest/cli
 
   test-component-registry:
-    if: ${{ false }}  # disable for now
+  #  if: ${{ false }}  # disable for now
     needs: list-components-job
     runs-on: ubuntu-latest
     strategy:
