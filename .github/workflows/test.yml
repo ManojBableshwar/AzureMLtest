@@ -2,11 +2,16 @@ on:
   push:
 
 env:
-  GROUP:  junqicanary-rg
-  LOCATION: eastus2euap
-  WORKSPACE: junqicanary-ws
-  REGISTRY: junqicanary-newregistry
-  SUB: ea4faa5b-5e44-4236-91f6-5483d5b17d14
+#  GROUP:  junqicanary-rg
+#  LOCATION: eastus2euap
+#  WORKSPACE: junqicanary-ws
+#  REGISTRY: junqicanary-newregistry
+#  SUB: ea4faa5b-5e44-4236-91f6-5483d5b17d14
+  GROUP:  OpenDatasetsPMRG
+  LOCATION: eastus2
+  WORKSPACE: OpenDatasetsPMWorkspace
+  REGISTRY: ContosoML
+  SUB: 21d8f407-c4c4-452e-87a4-e609bfb86248
 # uncommeting this run all commands in debug mode
   DEBUG: "--debug"
 # set this if private CLI has to be installed, else comment out
