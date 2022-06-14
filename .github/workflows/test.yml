@@ -43,7 +43,7 @@ jobs:
     - name: list-component-samples-step
       id: list-component-samples-step
 #      run: bash list-component-samples.sh
-      run: echo '::set-output name=sample_matrix::["nyc_taxi_data_regression", basics/5a_env_public_docker_image", "basics/5c_env_conda_file"]'
+      run: echo '::set-output name=sample_matrix::["nyc_taxi_data_regression", "basics/5a_env_public_docker_image", "basics/5c_env_conda_file"]'
 #      run: echo '::set-output name=sample_matrix::["basics/1a_e2e_local_components"]'
       working-directory: AzureMLtest/cli
     outputs:
