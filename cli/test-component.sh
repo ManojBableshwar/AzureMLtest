@@ -64,7 +64,7 @@ do
 
   if [[  $sample == "nyc_taxi_data_regression" ]]
   then
-    az ml component create --file $c_file --version $c_version $reg_var --set jobs.$job.environment=azureml://registries/azureml-staging/environments/sklearn-10-ubuntu2004-py38-cpu/versions/19.dev6 $DEBUG  || {
+    az ml component create --file $c_file --version $c_version $reg_var --set environment=azureml://registries/azureml-staging/environments/sklearn-10-ubuntu2004-py38-cpu/versions/19.dev6 $DEBUG  || {
         echo "Component create failed for c_file=$c_file"
         exit 1
     }
