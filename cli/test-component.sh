@@ -66,7 +66,7 @@ do
   then
     if [[ $mode == "registry" ]]
       then
-        az ml component create --file $c_file --version $c_version $reg_var --set environment=azureml://registries/CuratedRegistry/environments/AzureML-sklearn-1.0-ubuntu20.04-py38-cpu/versions/21 $DEBUG  || {
+        az ml component create --file $c_file --version $c_version $reg_var --set environment=azureml://registries/CuratedRegistry/environments/AzureML-sklearn-0.24-ubuntu18.04-py37-cpu/versions/35 $DEBUG  || {
           echo "Component create failed for c_file=$c_file"
           exit 1
       }
