@@ -18,11 +18,11 @@ env:
 #  WORKSPACE: mlw-contoso-819prod
 #  REGISTRY: ContosoML
 #  SUB: 21d8f407-c4c4-452e-87a4-e609bfb86248
-  GROUP: bug-bash-rg1
+  GROUP: rg-contoso-819prod
   LOCATION: eastus
   WORKSPACE: mlw-contoso-819prod
   REGISTRY: ContosoMLjun14
-  SUB: ea4faa5b-5e44-4236-91f6-5483d5b17d14
+  SUB: 21d8f407-c4c4-452e-87a4-e609bfb86248
 
 # uncommeting this run all commands in debug mode
   DEBUG: "--debug"
