@@ -62,26 +62,26 @@ do
   c_file_no_cur_dir=$(echo $c_file | sed 's/\.//')
   echo "Git url for this component: $gitdirurl$c_file_no_cur_dir"
 
-  if [[  $sample == "nyc_taxi_data_regression" ]]
-  then
-    if [[ $mode == "registry" ]]
-      then
-        az ml component create --file $c_file --version $c_version $reg_var --set environment=azureml://registries/CuratedRegistry/environments/AzureML-sklearn-0.24-ubuntu18.04-py37-cpu/versions/35 $DEBUG  || {
-          echo "Component create failed for c_file=$c_file"
-          exit 1
-      }
-      else
-        az ml component create --file $c_file --version $c_version $reg_var $DEBUG  || {
-          echo "Component create failed for c_file=$c_file"
-          exit 1
-      }
-      fi
-  else
+#  if [[  $sample == "nyc_taxi_data_regression" ]]
+#  then
+#    if [[ $mode == "registry" ]]
+#      then
+#        az ml component create --file $c_file --version $c_version $reg_var --set environment=azureml://registries/CuratedRegistry/environments/AzureML-sklearn-0.24-ubuntu18.04-py37-cpu/versions/35 $DEBUG  || {
+#          echo "Component create failed for c_file=$c_file"
+#          exit 1
+#      }
+#      else
+#        az ml component create --file $c_file --version $c_version $reg_var $DEBUG  || {
+#          echo "Component create failed for c_file=$c_file"
+#          exit 1
+#      }
+#      fi
+#  else
     az ml component create --file $c_file --version $c_version $reg_var $DEBUG  || {
         echo "Component create failed for c_file=$c_file"
         exit 1
     }
-  fi
+#  fi
 
 
 #  echo "az ml component show --name $c_name --version $c_version $reg_var $DEBUG"
